@@ -3,137 +3,140 @@ import kinesiologia.*
 describe "group of tests" {
 
 //**************************objetos para puntos 1 y 2*********************************/
-	var magneto // TODO apuntar a un magneto
-//	var bicicleta // TODO apuntar a una bicicleta
-//	var minitramp // TODO apuntar a un mimnitramp
+	var magneto=new Magneto()
+	var bicicleta= new Bicicleta()
+	var minitramp= new Minitrap()
 	
 	//un paciente común de 40 de edad, dolor=10 fortaleza=20 rutina: bicicleta, minitramp, bicicleta , magento.
-	var leo //TODO 
+	var leo = new PacienteNormal(edad=40,dolor=10,fortaleza=20,rutina=[bicicleta, minitramp, bicicleta , magneto])
 
 	//una paciente comun de 3 años, dolor 30, fortaleza,  50 rutina = magneto, bicicleta 
-	var milena //TODO
+	var milena =new PacienteNormal(edad=3,dolor=30,rutina=[magneto,bicicleta])
 
 //**************************objetos para puntos 3*********************************/
 //
 ////3.1
 //	//un paciente Resistente de 40 de edad, dolor=10 fortaleza=20 rutina: bicicleta, minitramp, bicicleta , magento.
 //	//(misma configuracion para leo, pero siendo resistente)
-//	var nico //TODO
+	var nico =new PacienteResistente(edad=40,dolor=10,fortaleza=20,rutina=[bicicleta, minitramp, bicicleta , magneto])
 //
 ////3.2	
 //	//un paciente Caprichosa de 40 de edad, dolor=10 fortaleza=20 rutina: bicicleta, minitramp, bicicleta , magento.
 //	//todos los aparatos son blancos 
 //	//(mismo que leo)	
-//	var victoria //TODO
+	var victoria =new PacienteCaprichoso(edad=40,dolor=10,fortaleza=20,rutina=[bicicleta, minitramp, bicicleta , magneto])
 //	
-//	var bicicletaRoja //TODO apuntar a una bicicleta roja, ojo que la otra bicicleta blanca sigue existiendo!
+	var bicicletaRoja =new Bicicleta(color="rojo")
 //	//un paciente Caprichosa de 40 de edad, dolor=10 fortaleza=20 rutina: bicicleta, minitramp, bicicletaRoja , magento.
 //	//todos los aparatos son blancos menos la segunda bicicleta que es roja
 //	//(mismo que leo)	
-//	var andrea //TODO  
+var andrea =new PacienteCaprichoso(edad=40,dolor=10,fortaleza=20,rutina=[bicicleta, minitramp, bicicletaRoja , magneto]) 
 //	
 ////3.3	
 //	//un paciente De Rapida Recuperacion 
 //	//un paciente Resistente de 40 de edad, dolor=10 fortaleza=20 rutina: bicicleta, minitramp, bicicleta , magento.
 //	//(misma configuracion para leo)
-//	var zoe //TODO 
+	var zoe =new PacienteRapido(edad=40,dolor=10,fortaleza=20,rutina=[bicicleta, minitramp, bicicleta , magneto]) 
 //
 //**************************objetos para puntos 4*********************************/
 //	//un centro que tiene como aparatos al magneto, la bicicleta, la bicicleta roja y el minitramp
 //	//y como pacientes a leo, milena, nico, victoria, andrea y zoe 
-//	var centro //TODO
+	var centro =new Centro(pacientes=#{milena,nico,leo,andrea,zoe},aparatos=[magneto, bicicleta,bicicletaRoja, minitramp])
 
 	
 //***********************Punto 1*************************************
 	test "usar magneto leo" {
-		assert.that(/*TODO: el magneto puede ser usado por leo */)	
-		/*TODO: leo usa el magento */
+		assert.that(leo.puedeUsar(magneto))	
+		leo.usarMaquina(magneto)
 		assert.equals(9, leo.dolor())		
 	} 	
 
 	test "usar magneto milena" {
-		assert.that(/*TODO: el magneto puede ser usado por milena */)	
-		/*TODO: milena usa el magento */
+		assert.that(milena.puedeUsar(magneto))	
+		milena.usarMaquina(magneto)
 		assert.equals(27, milena.dolor())		
 	}
 	
-//	test "usar bicicleta leo" {
-//		assert.that(/* TODO: la bicicleta puede ser usada por leo */)	
-//		/*TODO: leo usa la bicicleta */
-//		assert.equals(6, leo.dolor())		
-//		assert.equals(23, leo.fortaleza())		
-//	} 	
-//
-//	test "usar bicicleta milena" {
-//		assert.notThat(/*TODO: la bicileta puede ser usada por milena */)	
-//		/*TODO: milena usa la bicicleta (cosa que no puede hacer!) */
-//	}
-//	
-//	test "usar minitramp leo" {
-//		assert.that(/*TODO: el minitramp puede ser usado por leo*/)	
-//		/*TODO: leo usa el minitramp */
-//		assert.equals(24, leo.fortaleza())		
-//	} 	
-//
-//	test "usar minitramp milena" {
-//		assert.notThat(/*TODO: el minitramp puede ser usado por milena */)	
-//		/*TODO: milena usa el minitramp (cosa que no puede hacer!) */
-//		
-//	}
+	test "usar bicicleta leo" {
+		assert.that(leo.puedeUsar(bicicleta))	
+		leo.usarMaquina(bicicleta)
+		assert.equals(6, leo.dolor())		
+		assert.equals(23, leo.fortaleza())		
+	} 	
+
+test "usar bicicleta milena" {
+		assert.notThat(milena.puedeUsar(bicicleta))	
+		assert.throwsExceptionWithMessage("no puede usarlo", {milena.usarMaquina(bicicleta)})
+	}
+	
+	test "usar minitramp leo" {
+		assert.that(leo.puedeUsar(minitramp))	
+		leo.usarMaquina(minitramp)
+		assert.equals(24, leo.fortaleza())		
+	} 	
+
+	test "usar minitramp milena" {
+		assert.notThat(milena.puedeUsar(minitramp))
+		assert.throwsExceptionWithMessage("no puede usarlo", {milena.usarMaquina(minitramp)})	
+		
+		
+	}
 //***********************Punto 2*************************************
-//	test "sesion leo" {
-//		assert.that(/*TODO: leo puede cumplir la sesion */)	
-//		/*TODO: leo hace la sesion */
-//		assert.equals(1.8, leo.dolor()) //10 -4 -4 - 0.2 =  1.8		
-//		assert.equals(30, leo.fortaleza()) //20	+ 3 + 4 + 3	
-//	}	
-//	
-//	test "sesion milena" {
-//		assert.notThat(/*TODO: milena puede cumplir la sesion*/	
-//		/* milena hace la sesion (cosa que no puede hacer) */
-//	}	
+	test "sesion leo" {
+		assert.that(leo.puedeUsarTodo())	
+		leo.hacerSecion()
+		assert.equals(1.8, leo.dolor()) //10 -4 -4 - 0.2 =  1.8		
+		assert.equals(30, leo.fortaleza()) //20	+ 3 + 4 + 3	
+	}	
+	
+	test "sesion milena" {
+		assert.notThat(milena.puedeUsarTodo())	
+		assert.throwsExceptionWithMessage("no puede usarlo", {milena.hacerSecion()})	
+	}	
 //
 //***********************Punto 3*************************************//
-//	test "sesion nico (resistente)" {
-//		assert.that(/*TODO: nico puede cumplir la sesion */)	
-//		/*TODO: nico hace la sesion */
-//		assert.equals(1.8, nico.dolor()) //10 -4 -4 - 0.2 =  1.8		
-//		assert.equals(34, nico.fortaleza()) //20	+ 3 + 4 + 3	+ 4
-//	}
+	test "sesion nico (resistente)" {
+		assert.that( nico.puedeUsarTodo())	
+		nico.hacerSecion()
+		assert.equals(1.8, nico.dolor()) //10 -4 -4 - 0.2 =  1.8		
+		assert.equals(34, nico.fortaleza()) //20	+ 3 + 4 + 3	+ 4
+	}
 //	
-//	test "sesion victoria (caprichosa sin aparato rojo)" {
-//		assert.notThat(/*TODO: victoria puede cumplir la sesion */)	
-//		/* victoria hace la sesion (cosa que no puede hacer) */
-//	}		
+	test "sesion victoria (caprichosa sin aparato rojo)" {
+		assert.notThat(victoria.puedeUsarTodo())	
+		assert.throwsExceptionWithMessage("no puede usarlo", {victoria.hacerSecion()})
+	}		
 //
-//	test "sesion andrea (caprichosa con aparato rojo)" {
-//		assert.that(/*TODO: andrea puede cumplir la sesion */)	
-//		/* andrea hace la sesion */
-//		assert.equals(-5.58, andrea.dolor()) 	//10 -4 -4 - 0.2 -4 -4  -(-0.62)
-//		assert.equals(40, andrea.fortaleza()) //20	+ 3 + 4 + 3	+ 3 + 4 + 3	  
-//	}		
+	test "sesion andrea (caprichosa con aparato rojo)" {
+		assert.that(andrea.puedeUsarTodo())	
+		andrea.hacerSecion()
+		assert.equals(-5.58, andrea.dolor()) 	//10 -4 -4 - 0.2 -4 -4  -(-0.62)
+		assert.equals(40, andrea.fortaleza()) //20	+ 3 + 4 + 3	+ 3 + 4 + 3	  
+	}		
 //	
-//	test "sesion zoe (resistente)" {
+	test "sesion zoe (resistente)" {
 //
-//		//TODO:  Configurar para que se use el valor 1 para todos los resistentes
-//		
-//		assert.that(/* zoe puede cumplir la sesion */)	
-//		/* zoe hace la sesion */
+		//TODO:  Configurar para que se use el valor 1 para todos los resistentes
+		
+		assert.that(zoe.puedeUsarTodo())
+		puntos.config(1)
+			
+		zoe.hacerSecion()
 //
-//		assert.equals(0.8, zoe.dolor()) //10 -4 -4 - 0.2 -1  =  0.8		
-//		assert.equals(30, zoe.fortaleza()) //20	+ 3 + 4 + 3	
-//	}
+		assert.equals(0.8, zoe.dolor()) //10 -4 -4 - 0.2 -1  =  0.8		
+		assert.equals(30, zoe.fortaleza()) //20	+ 3 + 4 + 3	
+	}
 //***********************Punto 4*************************************
-//	test "colores" {
-//		assert.equals(#{"rojo","blanco"}, /*TODO: colores del centro */)		
-//	}
+	test "colores" {
+		assert.equals(#{"rojo","Blanco"}, centro.coloresDeAparatos())		
+	}
 //
-//	test "pacientes chiquitos" {
-//		assert.equals(#{milena}, /*TODO: pacientes chiquitos del centro */)	
-//	}	
+	test "pacientes chiquitos" {
+		assert.equals(#{milena}, centro.pacientesMenoresA8())	
+	}	
 //
-//	test "cuantos no pueden cumplir la sesion" {
-//		assert.equals(2, /*TODO: cantidad de pacientes del centro que no  pueden hacer la sesion*/) //no pueden milena y victoria = 2	
-//	}	
+	test "cuantos no pueden cumplir la sesion" {
+		assert.equals(2,  centro.pacientesQnoPuedenComplirConSuSecion()) //no pueden milena y victoria = 2	
+	}	
 	
 }
