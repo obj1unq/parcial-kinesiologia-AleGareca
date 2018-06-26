@@ -41,7 +41,7 @@ var andrea =new PacienteCaprichoso(edad=40,dolor=10,fortaleza=20,rutina=[bicicle
 //**************************objetos para puntos 4*********************************/
 //	//un centro que tiene como aparatos al magneto, la bicicleta, la bicicleta roja y el minitramp
 //	//y como pacientes a leo, milena, nico, victoria, andrea y zoe 
-	var centro =new Centro(pacientes=#{milena,nico,leo,andrea,zoe},aparatos=[magneto, bicicleta,bicicletaRoja, minitramp])
+	var centro =new Centro(pacientes=#{milena,nico,leo,andrea,zoe,victoria},aparatos=[magneto, bicicleta,bicicletaRoja, minitramp])
 
 	
 //***********************Punto 1*************************************

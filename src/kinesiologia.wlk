@@ -57,17 +57,6 @@ class PacienteCaprichoso inherits PacienteNormal {
 	}
 
 }
-
-class PacienteRapido inherits PacienteNormal {
-
-	var desgasteDeDolor = puntos.num()
-	override method hacerSecion(){
-		super()
-		self.calculoDeDolor(desgasteDeDolor)
-	}
-
-}
-
 object puntos{
 	var property num = 3
 	method config(n){
@@ -75,7 +64,15 @@ object puntos{
 	}
 }
 
+class PacienteRapido inherits PacienteNormal {
 
+
+	override method hacerSecion(){
+		super()
+		self.calculoDeDolor(puntos.num())
+	}
+
+}
 
 
 class Maquina{
