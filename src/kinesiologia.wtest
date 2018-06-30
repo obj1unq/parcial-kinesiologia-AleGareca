@@ -103,7 +103,7 @@ test "usar bicicleta milena" {
 	}
 //	
 	test "sesion victoria (caprichosa sin aparato rojo)" {
-		assert.notThat(victoria.puedeUsarTodo())	
+		assert.notThat(victoria.puedeUsarTodo())			
 		assert.throwsExceptionWithMessage("no puede usarlo", {victoria.hacerSecion()})
 	}		
 //
